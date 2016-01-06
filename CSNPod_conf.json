@@ -1,0 +1,68 @@
+{
+    "csnpod_unit": {
+        "admin_cell_phone": "010-7101-6643"
+    },
+    "sensor_unit": {
+        "count": 2,
+        "elements": [
+            {
+                "name": "Multi Temperature/Humidity Sensor",
+                "type": "multi",
+                "sensors": [
+                    {
+                        "local_id": "sensor1",
+                        "csn_id": "24833caf",
+                        "time_format": "yyyy-MM-dd HH:mm:ss",
+                        "value_type": "float",
+                        "description": "Temerature"
+                    },
+                    {
+                        "local_id": "sensor2",
+                        "csn_id": "30e70f74",
+                        "time_format": "yyyy-MM-dd HH:mm:ss",
+                        "value_type": "float",
+                        "description": "Humidity"
+                    }
+                ],
+                "parse_regex": "(\\D*)([0-9]*.[0-9]*)C(\\D*)([0-9]*.[0-9]*)%",
+                "parse_target": {
+                    "sensor1": "2",
+                    "sensor2": "4"
+                },
+                "sampling_period": 0
+            },
+            {
+                "name": "Single Temperature Sensor",
+                "type": "single",
+                "sensors": [
+                    {
+                        "local_id": "Temperature",
+                        "csn_id": "3f66588e",
+                        "time_format": "yyyy-MM-dd HH:mm:ss",
+                        "value_type": "float",
+                        "description": "temperature"
+                    }
+                ],
+                "parse_regex": "(\\D*)([0-9]*.[0-9]*)C",
+                "parse_target": {
+                    "Temperature": "2"
+                },
+                "sampling_period": 0
+            }
+        ]
+    },
+    "data_unit": {
+        "db_name": "sensor_queue",
+        "stream_name": "stream",
+        "buffer_size": 5,
+        "server_ip": "117.16.146.55",
+        "server_port": 55555,
+        "transfer_period": 30,
+        "max_transfer_cnt_at_once": 5
+    },
+    "comm_unit": {
+        "response_mode": "NUMERIC",
+        "satus_check_period": 60,
+        "comm_type": "CELLULAR"
+    }
+}

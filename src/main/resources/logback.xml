@@ -1,0 +1,87 @@
+<configuration>
+	<!-- 변수 사용 가능 -->
+	<property name="USER_HOME" value="/home/pi/CSNPod/logs" />
+	<property name="CSN_POD_LOG_FILE_NAME" value="csnpod.log" />
+	<property name="SU_LOG_FILE_NAME" value="su.log" />
+	<property name="DU_LOG_FILE_NAME" value="du.log" />
+	<property name="CU_LOG_FILE_NAME" value="cu.log" />
+	
+	<!-- <property name="WARN_LOG_FILE_NAME" value="warning.log" /> -->
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %level[%file:%line] [%thread] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csnpod" level="INFO">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+
+
+	<appender name="TOTAL-LOG" class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/${CSN_POD_LOG_FILE_NAME}</file>
+		<encoder>
+			<pattern>%date %level[%file:%line] [%thread] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csnpod" level="TRACE">
+		<appender-ref ref="TOTAL-LOG" />
+	</logger>
+	
+	<appender name="SU-LOG" class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/${SU_LOG_FILE_NAME}</file>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csnpod.sensor" level="DEBUG">
+		<appender-ref ref="SU-LOG" />
+	</logger>
+
+	<appender name="DU-LOG" class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/${DU_LOG_FILE_NAME}</file>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csnpod.datastream" level="DEBUG">
+		<appender-ref ref="DU-LOG" />
+	</logger>
+	
+	<appender name="CU-LOG" class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/${CU_LOG_FILE_NAME}</file>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csnpod.comm" level="DEBUG">
+		<appender-ref ref="CU-LOG" />
+	</logger>
+
+
+<!--  Sample Log
+	<appender name="DU-LOG" class="ch.qos.logback.core.FileAppender">
+		<file>${USER_HOME}/${DATA_STREAM_LOG_FILE_NAME}</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line]
+				%msg%n </pattern>
+		</encoder>
+	</appender>
+	<logger name="org.csn.agent.transfer" level="WARN">
+		<appender-ref ref="FILE-WARN" />
+	</logger>
+-->
+
+	<!-- Strictly speaking, the level attribute is not necessary since -->
+	<!-- the level of the root level is set to DEBUG by default. -->
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
